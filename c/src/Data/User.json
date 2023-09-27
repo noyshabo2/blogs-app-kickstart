@@ -1,0 +1,33 @@
+[
+  {
+    "Id": "a1b2c3d4e5",
+    "userName": "john_doe",
+    "likePostTag": {
+      "React": 5,
+      "JavaScript": 7,
+      "Vue": 2,
+      "Python": 1
+    },
+    "likePostCreatorsIds": {
+      "32232232": 2,
+      "11212121": 3,
+      "98383938": 5
+    },
+    "likePostIds": [222, 111, 22]
+  },
+  {
+    "Id": "a1b2c3d4e5",
+    "userName": "noy_shabo",
+    "likePostTag": {
+      "Food": 5,
+      "JavaScript": 7,
+      "Wix": 2,
+      "Dogs": 1
+    },
+    "likePostIds": {
+      "32232232": 2,
+      "11212121": 3,
+      "98383938": 5
+    }
+  }
+]

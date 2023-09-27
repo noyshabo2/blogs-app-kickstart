@@ -1,0 +1,14 @@
+.blog-list{
+    background-color: black;
+    color: white;
+    padding: 40px;
+    ul{
+        width: min(1000px, 80%);
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        list-style: none;
+        gap: 30px;
+    }
+}

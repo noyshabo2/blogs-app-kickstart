@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 101,
+    "Title": "React",
+    "BlogIds": [101, 103, 104] // REFERENCE TO BLOGS
+  },
+  {
+    "Id": 102,
+    "Title": "JavaScript",
+    "BlogIds": [101, 102, 105]
+  },
+  {
+    "Id": 103,
+    "Title": "Vue",
+    "BlogIds": [106]
+  },
+  {
+    "Id": 104,
+    "Title": "Python",
+    "BlogIds": [102, 107]
+  }
+]
