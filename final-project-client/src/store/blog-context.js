@@ -1,54 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { getBlogs } from "../helper";
-
-const blogsData = [
-  {
-    id: 1,
-    title: "Post 1",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-    createAt: "2021-05-01",
-    tags: ["tag1", "tag2", "tag3"],
-    image:
-      "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*jCerKEP1Mscao2j73MTsEw.jpeg",
-  },
-  {
-    id: 2,
-    title: "Post 2",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-    createAt: "2021-05-01",
-    tags: ["tag1", "tag2", "tag3"],
-    image:
-      "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*jCerKEP1Mscao2j73MTsEw.jpeg",
-  },
-];
+import { getBlogs, addBlog } from "../helper";
 
 const BlogContext = React.createContext({
+  isAddModalOpen: false,
   blogs: [],
   addPost: (blog) => {},
+  currTags: [],
+  addTagHandler: (newTags) => {},
 });
 
 export const BlogContextProvider = (props) => {
   const [blogs, setPosts] = useState([]);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [currTags, setCurrTags] = useState([]);
 
-  const fetchBlogs = async (filterBy = "") => {
-    const data = await getBlogs(filterBy);
+  const fetchBlogs = async (newTags) => {
+    const data = await getBlogs(newTags);
+    console.log(data);
     setPosts(data.blogs);
   };
+
   useEffect(() => {
     fetchBlogs();
   }, []);
 
-  const addPostHandler = (blog) => {
+  const addTagHandler = (newTags) => {
+    if (typeof newTags === "string") newTags = [newTags];
+    setCurrTags(newTags);
+    fetchBlogs(newTags);
+  };
+
+  const addBlogHandler = async (blog) => {
+    const newBlog = await addBlog(blog);
     setPosts((prevBlog) => {
-      return prevBlog.concat(blog);
+      return prevBlog.concat(newBlog);
     });
+  };
+
+  const openAddModalHandler = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const closeAddModalHandler = () => {
+    setIsAddModalOpen(false);
   };
 
   const contextValue = {
     blogs: blogs,
-    addPost: addPostHandler,
+    addBlog: addBlogHandler,
+    isAddModalOpen: isAddModalOpen,
+    openAddModal: openAddModalHandler,
+    closeAddModal: closeAddModalHandler,
+    addTagHandler: addTagHandler,
+    currTags: currTags,
+    fetchBlogs: fetchBlogs,
   };
 
   return (

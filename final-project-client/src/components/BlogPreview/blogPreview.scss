@@ -31,15 +31,18 @@
     .tag{
         background-color: greenyellow;
         color: black;
-        padding: 5px 20px;
-        border-radius: 5px 10px 5px 10px;
+        padding: 3px 20px;
+        border-radius: 5px 15px 5px 15px;
         margin-right: 10px;
         font-size: 0.8rem;
+        font-weight: 400;
+        cursor: pointer;
     }
 
     .date{
-        color: #ccc;
+        color: #eae2e2;
         font-size: 0.8rem;
+        font-weight: 400;
     }
 
     .footer-container{

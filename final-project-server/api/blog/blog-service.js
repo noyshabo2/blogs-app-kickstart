@@ -5,13 +5,15 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 module.exports = {
-  addBlog: async (title, content, tags) => {
+  addBlog: async (title, content, tags, image) => {
     try {
       logger.info(`[addBlog] - ${path.basename(__filename)}`);
       const newBlog = new Blog({
         title,
         content,
         tags,
+        image,
+        createdAt: new Date(),
         // createdBy: req.user._id,
       });
       return await newBlog.save();
@@ -20,11 +22,13 @@ module.exports = {
       throw new Error("Internal Server Error");
     }
   },
-  getAllBlogs: async (filterByTags) => {
+  getAllBlogs: async (filterByTags, sortBy = "createdAt") => {
     try {
       logger.info(`[getAllBlogs] - ${path.basename(__filename)}`);
       if (!filterByTags) {
-        return await Blog.find().populate("createdBy", "name");
+        return await Blog.find()
+          .populate("createdBy", "name")
+          .sort({ [sortBy]: -1 });
       }
       return await Blog.find({ tags: { $in: filterByTags } }).populate(
         "createdBy",

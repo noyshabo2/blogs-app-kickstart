@@ -1,6 +1,6 @@
 import blogService from "./services/blogService";
 
-export const saveBlog = (blog) => {
+export const addBlog = (blog) => {
   return blogService.post("blogs", blog);
 };
 

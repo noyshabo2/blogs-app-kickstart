@@ -2,14 +2,15 @@ const blogService = require("./blog-service");
 const logger = require("../../helpers/winston");
 const path = require("path");
 var bodyParser = require("body-parser");
+const { log } = require("console");
 const jsonParser = bodyParser.json();
 
 exports.blogController = {
   async addBlog(req, res) {
     logger.info(`[addBlog] - ${path.basename(__filename)}`);
     try {
-      const { title, content, tags } = req.body;
-      const blog = await blogService.addBlog(title, content, tags);
+      const { title, content, tags, image } = req.body;
+      const blog = await blogService.addBlog(title, content, tags, image);
       res.status(201).json({
         message: "Blog created successfully",
         blog,
@@ -25,7 +26,8 @@ exports.blogController = {
     logger.info(`[getAllBlogs] - ${path.basename(__filename)}`);
     try {
       const { tags } = req.query;
-      const filterByTags = tags ? tags.split(",") : null;
+      logger.info(`[getAllBlogs] - ${tags} ${typeof tags}`);
+      const filterByTags = tags ? Object.values(tags) : null;
       const blogs = await blogService.getAllBlogs(filterByTags);
       res.status(200).json({
         blogs,
